@@ -1,0 +1,36 @@
+
+<div class="app-content content">
+        <div class="sidebar-content card d-none d-lg-block">
+    <div class="card-body chat-fixed-search w-100">
+        <fieldset class="form-group position-relative has-icon-left m-0">
+            <input id="search-nodata" class="form-control" name="search-nodata" placeholder="Search User" type="text" data-list=".nodata_list" autocomplete="off">
+            <div class="form-control-position">
+                <i class="ft-search"></i>
+            </div>
+        </fieldset>     
+    </div>
+    <div id="users-list" class="list-group position-relative">
+        <div class="users-list-padding media-list">
+          <ul class="vertical nodata_list">
+         <% @chats.each do |chat| %>
+            <% last_message  = chat.messages.order('created_at ASC').last if not chat.messages.blank? %>
+             <li class="li-style"><a href="<%= chat_path(chat) %>" class="media border-0">
+                <div class="media-left pr-1">
+                  <!--Avatar on Inbox Page-->
+                    <span class="avatar avatar-md avatar-<%= chat.chat_subscribers.select{|c| c.subscriber!= current_user}.first.subscriber.online ? "online":"off" %>"><img class="media-object rounded-circle" src="/avatar.png" alt="Avatar">
+                    <i></i>
+                    </span>
+                </div>
+                <div class="media-body w-100">
+                    <h6 class="list-group-item-heading"><%= chat.chat_subscribers.select{|c| c.subscriber!= current_user}.first.subscriber.fullname %> <span class="font-small-3 float-right primary"><%= time_ago_in_words( last_message.created_at)+ " ago" if last_message %></span></h6>
+                    <p class="list-group-item-text text-muted mb-0"><i class="ft-check primary font-small-2"></i> <%= last_message.content if last_message %> <span class="float-right primary"><i class="font-medium-1 icon-pin blue-grey lighten-3"></i></span></p>
+                </div>
+            </a></li>
+        <% end %>   
+        </ul>
+        </div>
+    </div>
+    </div>
+
+        
+      </div>

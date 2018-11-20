@@ -1,0 +1,35 @@
+
+<div class="app-content content">
+        <div class="sidebar-content card d-none d-lg-block">
+    <div class="card-body chat-fixed-search w-100">
+        <fieldset class="form-group position-relative has-icon-left m-0">
+          
+             <input id="search-nodata" class="form-control" name="search-nodata" placeholder="Search User" type="text" data-list=".nodata_list" autocomplete="off">
+            <div class="form-control-position">
+                <i class="ft-search"></i>
+            </div>
+        </fieldset>
+    </div>
+    <div id="users-list" class="list-group position-relative">
+        <div class="users-list-padding media-list">
+          <ul class="vertical nodata_list">
+          <% User.where.not(id: current_user.id).each do |user| %>
+            <li class="li-style"><a href="<%= chats_path({user_type: user.class.to_s,user_id: user.id }) %>" data-method="post" class="media border-0">
+                <div class="media-left pr-1">
+                  <!--Avatar on Inbox Page-->
+                    <span class="avatar avatar-md avatar-<%= user.online ? "online":"off" %>"><img class="media-object rounded-circle" src="/avatar.png" alt="Avatar">
+                    <i></i>
+                    </span>
+                </div>
+                <div class="media-body w-100">
+                    <h6 class="list-group-item-heading"><%= user.fullname %> </h6>
+                </div>
+            </a></li>
+        <% end %> 
+        </ul>
+        </div>
+    </div>
+    </div>
+
+        
+      </div>

@@ -1,0 +1,19 @@
+<div class="answer-add">
+    <%= form_for [@chat,@message],remote: true, multipart: true do |f| %>
+      <%= f.hidden_field :sender_type, value: current_user.class.to_s %>
+        <%= f.hidden_field :sender_id, value: current_user.id %>
+        <%= token_tag form_authenticity_token %>
+      <%= f.text_area :content, placeholder:"Write a message", autocomplete:"off", id:"message-body" %>
+      
+      <div class="answer-btn answer-btn-1"></div>
+      
+      <%= f.submit "Send", class:'btn btn-primary chat-submit'%>
+      <div class="input-wrap">
+      <%= f.file_field :document, class: "",id:"doc", style:"display:none;" %>
+      </div>
+    <% end %>
+</div>
+
+
+
+

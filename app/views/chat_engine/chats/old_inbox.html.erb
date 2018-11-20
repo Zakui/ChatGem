@@ -1,0 +1,68 @@
+<div>
+  <div>
+      
+      <h1>Inbox</h1>
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Me</th>
+            <th>User</th>
+            <th>Last Message</th>
+            <th>Time</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+      
+        <tbody>
+          <% @chats.each do |chat| %>
+            <tr>
+              <% last_message  = chat.messages.order('created_at ASC').last if not chat.messages.blank? %>
+              <td><%= current_user.fullname %></td>
+              <td><%= chat.chat_subscribers.select{|c| c.subscriber!= current_user}.first.subscriber.fullname %> </td>
+              
+              
+              <td><%= last_message.content if last_message %></td>
+              <td> <%= time_ago_in_words( last_message.created_at)+ " ago" if last_message %></td>
+              <td><%= link_to 'Start Chat', chat_path(chat) %></td>
+              
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+      <br>
+</div>
+</div>
+
+
+
+<section class="chat-app-form">
+
+   
+    <fieldset class="form-group position-relative has-icon-left col-12 m-0">
+        <%= f.text_area :content, class:"form-control", id:"iconLeft4", placeholder:"Type your message" %>
+        <div class="form-control-position control-position-right">
+          <i class="fas fa-paperclip"></i>
+          <i class="fas fa-paper-plane"></i>
+        </div>
+        <%= f.hidden_field :sender_type, value: current_user.class.to_s %>
+        <%= f.hidden_field :sender_id, value: current_user.id %><br>
+        <%= token_tag form_authenticity_token %>
+
+    </fieldset>
+  <fieldset class="form-group position-relative has-icon-left m-0">
+        <%= f.submit "Send", class:"btn btn-primary"  %>
+         <%= f.file_field :document %>
+    </fieldset>
+    <% end %>
+      
+    
+</section>
+
+
+            
+            
+            
+            <h2>Messages</h2>
+            <!--<div id="">-->

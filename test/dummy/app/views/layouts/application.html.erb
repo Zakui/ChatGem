@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dummy</title>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <% if user_signed_in? %>
+      <li>
+        <%= link_to('Logout', main_app.destroy_user_session_path, method: :delete) %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to('Login', main_app.new_user_session_path)  %>
+      </li>
+    <% end %>
+    <%= yield %>
+    <% if user_signed_in? %>
+      <div id="user_div" data-user=<%= [current_user.class.to_s,current_user.id.to_s].join("_") %>></div>
+    <% end %>
+
+  </body>
+</html>

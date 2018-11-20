@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat engine</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <%= csrf_meta_tags %>
+  <%= action_cable_meta_tag %>
+  <%= stylesheet_link_tag    "chat_engine/application", media: "all" %>
+  <%= javascript_include_tag "chat_engine/application" %>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  
+</head>
+<body class="content-left-sidebar chat-application" data-col="content-left-sidebar">
+
+<%= yield %>
+
+<% if user_signed_in? %>
+  <div id="user_div" data-user=<%= [current_user.class.to_s,current_user.id.to_s].join("_") %>></div>
+<% end %>
+</body>
+</html>

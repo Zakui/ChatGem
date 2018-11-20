@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<!--<img src='assets/images/chat_engine/road.jpg')></img>-->
+<%#= image_tag('chat_engine/road.jpg') %>
+<h1>Chats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% User.where.not(id: current_user.id).each do |user| %>
+      <tr>
+        <td> <%= user.email %></td>
+        <td><%= link_to 'Start Chat', chats_path({user_type: user.class.to_s,user_id: user.id }),method: :post %></td>
+        <td><%#= link_to 'Edit', edit_chat_path(chat) %></td>
+        <td><%#= link_to 'Destroy', chat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
